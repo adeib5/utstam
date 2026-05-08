@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Speak Up</string>
+    <string name="title_home">Home</string>
+    <string name="title_history">Riwayat</string>
+    <string name="title_profile">Profile</string>
+
+    <string-array name="bullying_categories">
+        <item>Bullying Verbal (Ejekan/Hinaan)</item>
+        <item>Bullying Fisik (Kekerasan)</item>
+        <item>Bullying Sosial (Pengucilan)</item>
+        <item>Cyberbullying (Grup Chat/Medsos)</item>
+        <item>Senioritas Tidak Sehat</item>
+        <item>Pelecehan Seksual</item>
+        <item>Ancaman / Intimidasi</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="bullying_locations">
+        <item>Ruang Kuliah</item>
+        <item>Laboratorium</item>
+        <item>Perpustakaan Pusat</item>
+        <item>Kantin Kampus</item>
+        <item>Area Parkir Mahasiswa</item>
+        <item>Auditorium / GOR</item>
+        <item>Asrama Mahasiswa</item>
+        <item>Sekretariat Organisasi (Hima/UKM)</item>
+        <item>Media Sosial / Grup Mahasiswa</item>
+        <item>Luar Kampus</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>

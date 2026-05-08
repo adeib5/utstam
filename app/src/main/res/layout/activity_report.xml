@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buat Laporan Baru"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Berikan detail kejadian yang Anda alami atau saksikan."
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <!-- Kategori -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_category"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Kategori Bullying"
+            app:hintTextColor="@color/neon_green"
+            android:textColorHint="@color/text_secondary"
+            app:boxStrokeColor="@color/neon_green"
+            app:endIconTint="@color/neon_green"
+            app:boxBackgroundColor="@color/black">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/spinner_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/white"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Lokasi -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_location"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Lokasi Kejadian"
+            app:hintTextColor="@color/neon_green"
+            android:textColorHint="@color/text_secondary"
+            app:boxStrokeColor="@color/neon_green"
+            app:endIconTint="@color/neon_green"
+            app:boxBackgroundColor="@color/black">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/spinner_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/white"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Tanggal -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_date"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Tanggal Kejadian"
+            app:hintTextColor="@color/neon_green"
+            android:textColorHint="@color/text_secondary"
+            app:boxStrokeColor="@color/neon_green"
+            app:startIconDrawable="@drawable/ic_calendar"
+            app:startIconTint="@color/neon_green"
+            app:boxBackgroundColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:textColor="@color/neon_green"
+                android:textStyle="bold"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Deskripsi -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Ceritakan Kejadian"
+            app:hintTextColor="@color/neon_green"
+            android:textColorHint="@color/text_secondary"
+            app:boxStrokeColor="@color/neon_green"
+            app:boxBackgroundColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:textColor="@color/white"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_upload_photo"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:text="Lampirkan Foto Bukti"
+            android:textColor="@color/neon_green"
+            app:strokeColor="@color/neon_green" />
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:text="Kirim Laporan"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

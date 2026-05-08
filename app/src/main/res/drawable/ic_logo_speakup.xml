@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+
+    <!-- Megaphone Body -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M15,75 L45,55 L45,95 L15,85 Z" />
+
+    <!-- Megaphone Back Part -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M10,75 C10,70 15,70 15,75 L15,85 C15,90 10,90 10,85 Z" />
+
+    <!-- Megaphone Handle -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M35,88 L35,105 C35,108 32,108 32,105 L30,92 Z" />
+
+    <!-- Speech Bubble Outline (from the image) -->
+    <path
+        android:strokeColor="@color/white"
+        android:strokeWidth="2"
+        android:pathData="M50,40 L180,40 L180,110 L80,110 L70,125 L70,110 L50,110 Z" />
+
+    <!-- "SPEAK UP" Text representation (Lines) -->
+    <!-- SPEAK -->
+    <path
+        android:strokeColor="@color/white"
+        android:strokeWidth="4"
+        android:pathData="M65,65 L105,65" />
+    <!-- UP -->
+    <path
+        android:strokeColor="@color/white"
+        android:strokeWidth="4"
+        android:pathData="M115,65 L145,65" />
+
+    <!-- Decorative lines like in the image -->
+    <path
+        android:strokeColor="@color/white"
+        android:strokeWidth="1"
+        android:pathData="M55,35 L45,35 L45,55" />
+
+</vector>
