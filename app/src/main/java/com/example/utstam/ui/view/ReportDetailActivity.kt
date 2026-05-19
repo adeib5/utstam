@@ -3,6 +3,7 @@ package com.example.utstam.ui.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.utstam.R
 import com.example.utstam.databinding.ActivityReportDetailBinding
 import com.example.utstam.model.Report
@@ -29,6 +30,17 @@ class ReportDetailActivity : AppCompatActivity() {
         
         val statusBg = if (report.status == "Selesai") R.drawable.bg_status_selesai else R.drawable.bg_status_diproses
         binding.tvDetailStatus.setBackgroundResource(statusBg)
+
+        if (!report.photoUri.isNullOrEmpty()) {
+            binding.ivDetailPhoto.visibility = View.VISIBLE
+            Glide.with(this)
+                .load(report.photoUri)
+                .placeholder(R.drawable.banner_kampus)
+                .error(R.drawable.illustration_edu_1)
+                .into(binding.ivDetailPhoto)
+        } else {
+            binding.ivDetailPhoto.visibility = View.GONE
+        }
 
         if (report.adminResponse != null) {
             binding.tvAdminResponseLabel.visibility = View.VISIBLE

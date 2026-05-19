@@ -21,7 +21,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnSaveProfile.setOnClickListener {
             val newName = binding.etEditName.text.toString()
             if (newName.isNotEmpty()) {
-                Repository.updateUser(this, newName, user?.email ?: "")
+                Repository.updateUser(this, newName)
                 Toast.makeText(this, "Profil diperbarui", Toast.LENGTH_SHORT).show()
                 finish()
             } else {

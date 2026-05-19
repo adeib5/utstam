@@ -2,6 +2,7 @@ package com.example.utstam.ui.view
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -17,6 +18,7 @@ import java.util.*
 class ReportActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReportBinding
     private var selectedDate: String = ""
+    private var selectedPhotoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,19 +100,32 @@ class ReportActivity : AppCompatActivity() {
             location = location,
             date = dateValue,
             description = description,
-            photoUri = null
+            photoUri = selectedPhotoUri?.toString()
         )
 
+        binding.btnSubmit.isEnabled = false
+        
         Repository.reports.add(0, newReport)
-        Toast.makeText(this, "✅ Laporan Berhasil Dikirim oleh $displayName", Toast.LENGTH_LONG).show()
-        finish()
+        
+        Repository.postReportToApi(newReport) { success ->
+            runOnUiThread {
+                binding.btnSubmit.isEnabled = true
+                if (success) {
+                    Toast.makeText(this, "✅ Laporan Berhasil Dikirim ke Server", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "⚠️ Gagal mengirim ke server, laporan tersimpan secara lokal", Toast.LENGTH_LONG).show()
+                }
+                finish()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == RESULT_OK) {
+            selectedPhotoUri = data?.data
             binding.ivPreview.visibility = View.VISIBLE
-            binding.ivPreview.setImageURI(data?.data)
+            binding.ivPreview.setImageURI(selectedPhotoUri)
         }
     }
 }
