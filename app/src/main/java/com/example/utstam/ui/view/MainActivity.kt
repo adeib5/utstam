@@ -1,14 +1,12 @@
-package com.example.utstam
+package com.example.utstam.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.utstam.R
 import com.example.utstam.databinding.ActivityMainBinding
-import com.example.utstam.ui.home.HomeFragment
-import com.example.utstam.ui.history.HistoryFragment
-import com.example.utstam.ui.profile.ProfileFragment
 
-class    MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
@@ -40,7 +38,7 @@ class    MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
