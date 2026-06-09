@@ -17,6 +17,7 @@ import java.util.*
 class ReportActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReportBinding
     private var selectedDate: String = ""
+    private var selectedImageUri: android.net.Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +34,15 @@ class ReportActivity : AppCompatActivity() {
 
         binding.btnSubmit.setOnClickListener {
             validateAndSubmit()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            selectedImageUri = data?.data
+            binding.ivPreview.visibility = View.VISIBLE
+            binding.ivPreview.setImageURI(selectedImageUri)
         }
     }
 
@@ -98,19 +108,12 @@ class ReportActivity : AppCompatActivity() {
             location = location,
             date = dateValue,
             description = description,
-            photoUri = null
+            photoUri = selectedImageUri?.toString()
         )
 
         DataRepository.reports.add(0, newReport)
+        DataRepository.saveReports(this)
         Toast.makeText(this, "✅ Laporan Berhasil Dikirim oleh $displayName", Toast.LENGTH_LONG).show()
         finish()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            binding.ivPreview.visibility = View.VISIBLE
-            binding.ivPreview.setImageURI(data?.data)
-        }
     }
 }

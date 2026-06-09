@@ -17,9 +17,9 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnRegisterSubmit.setOnClickListener {
-            val name = binding.etRegisterName.text.toString()
-            val email = binding.etRegisterEmail.text.toString()
-            val password = binding.etRegisterPassword.text.toString()
+            val name = binding.etRegisterName.text.toString().trim()
+            val email = binding.etRegisterEmail.text.toString().trim()
+            val password = binding.etRegisterPassword.text.toString().trim()
 
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 val newUser = User(
@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
                     email = email,
                     password = password
                 )
-                DataRepository.users.add(newUser)
+                DataRepository.addUser(this, newUser)
                 Toast.makeText(this, "Pendaftaran berhasil, silakan login", Toast.LENGTH_SHORT).show()
                 finish()
             } else {

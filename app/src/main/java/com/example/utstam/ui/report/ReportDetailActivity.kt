@@ -29,6 +29,13 @@ class ReportDetailActivity : AppCompatActivity() {
         val statusBg = if (report.status == "Selesai") R.drawable.bg_status_selesai else R.drawable.bg_status_diproses
         binding.tvDetailStatus.setBackgroundResource(statusBg)
 
+        if (!report.photoUri.isNullOrEmpty()) {
+            binding.ivDetailPhoto.visibility = View.VISIBLE
+            binding.ivDetailPhoto.setImageURI(android.net.Uri.parse(report.photoUri))
+        } else {
+            binding.ivDetailPhoto.visibility = View.GONE
+        }
+
         if (report.adminResponse != null) {
             binding.tvAdminResponseLabel.visibility = View.VISIBLE
             binding.tvAdminResponse.visibility = View.VISIBLE

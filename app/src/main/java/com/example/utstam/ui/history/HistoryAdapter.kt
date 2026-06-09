@@ -3,6 +3,7 @@ package com.example.utstam.ui.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.utstam.R
 import com.example.utstam.databinding.ItemHistoryBinding
 import com.example.utstam.model.Report
@@ -23,18 +24,29 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val report = reports[position]
-        holder.binding.tvItemLocation.text = "${report.category} - ${report.location}"
         
+        // Title: Category (Reporter)
+        holder.binding.tvItemLocation.text = "${report.category} (${report.reporterDisplayName})"
+        
+        // Date formatting
         val sdf = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
         holder.binding.tvItemDate.text = sdf.format(Date(report.timestamp))
 
-        val infoText = "Dilaporkan oleh: ${report.reporterDisplayName}"
-        holder.binding.tvItemLocation.text = "${report.category} (${report.reporterDisplayName})"
-
+        // Status styling
         holder.binding.tvItemStatus.text = report.status
-        
         val statusBg = if (report.status == "Selesai") R.drawable.bg_status_selesai else R.drawable.bg_status_diproses
         holder.binding.tvItemStatus.setBackgroundResource(statusBg)
+
+        // Load Thumbnail Image
+        if (!report.photoUri.isNullOrEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(report.photoUri)
+                .placeholder(R.drawable.ic_report)
+                .error(R.drawable.ic_report)
+                .into(holder.binding.ivItemPhoto)
+        } else {
+            holder.binding.ivItemPhoto.setImageResource(R.drawable.ic_report)
+        }
 
         holder.itemView.setOnClickListener { onItemClick(report) }
     }

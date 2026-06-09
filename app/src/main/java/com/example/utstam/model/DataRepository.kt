@@ -11,13 +11,9 @@ object DataRepository {
     private const val KEY_USER_EMAIL = "logged_in_user_email"
     private const val KEY_IS_LOGGED_IN = "is_logged_in"
     private const val KEY_ANONYMOUS_MODE = "anonymous_mode"
+    private const val KEY_REPORTS = "saved_reports"
 
-    val reports = mutableListOf<Report>(
-        Report("1", "user1", "Anonim", "Verbal", "Kantin", "2023-11-01", "Diejek karena penampilan", null, System.currentTimeMillis() - 400000000, "Selesai", "Kami telah memberikan teguran kepada pelaku."),
-        Report("2", "user1", "Ahmad Fauzi", "Senioritas", "Asrama", "2023-11-05", "Dipaksa cuci baju senior", null, System.currentTimeMillis() - 300000000, "Diproses"),
-        Report("3", "user1", "Anonim", "Online", "Grup WhatsApp", "2023-11-10", "Pesan bernada ancaman di grup kelas", null, System.currentTimeMillis() - 200000000, "Diproses"),
-        Report("4", "user1", "Ahmad Fauzi", "Fisik", "Gedung A", "2023-11-12", "Didorong hingga jatuh saat praktikum", null, System.currentTimeMillis() - 100000000, "Diproses")
-    )
+    val reports = mutableListOf<Report>()
 
     val educationList = listOf(
         Education(1, "Bullying di Kampus", "Kenali bentuk-bentuknya.", "Bullying di lingkungan kampus seringkali lebih halus namun merusak. Bentuknya bisa berupa senioritas yang berlebihan, pengucilan sosial, hingga pelecehan verbal di depan umum.\n\nMahasiswa harus sadar bahwa setiap orang berhak merasa aman di lingkungan pendidikan. Jangan biarkan tindakan merugikan ini berlanjut.", R.drawable.illustration_edu_1),
@@ -36,8 +32,26 @@ object DataRepository {
 
     var loggedInUser: User? = null
 
+    private const val KEY_LOCAL_USERS = "local_users"
+
     fun init(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val gson = com.google.gson.Gson()
+        val json = prefs.getString(KEY_LOCAL_USERS, null)
+        if (json != null) {
+            try {
+                val type = object : com.google.gson.reflect.TypeToken<List<User>>() {}.type
+                val savedUsers: List<User> = gson.fromJson(json, type)
+                savedUsers.forEach { savedUser ->
+                    if (users.none { it.email == savedUser.email }) {
+                        users.add(savedUser)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         val isLoggedIn = prefs.getBoolean(KEY_IS_LOGGED_IN, false)
         if (isLoggedIn) {
             val id = prefs.getString(KEY_USER_ID, "user1") ?: "user1"
@@ -45,6 +59,59 @@ object DataRepository {
             val email = prefs.getString(KEY_USER_EMAIL, "") ?: ""
             loggedInUser = User(id, name, email, "")
         }
+        
+        loadReports(context)
+    }
+
+    fun saveReports(context: Context) {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val gson = com.google.gson.Gson()
+        val json = gson.toJson(reports)
+        prefs.edit().putString(KEY_REPORTS, json).apply()
+    }
+
+    fun loadReports(context: Context) {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val json = prefs.getString(KEY_REPORTS, null)
+        if (json != null) {
+            try {
+                val gson = com.google.gson.Gson()
+                val type = object : com.google.gson.reflect.TypeToken<MutableList<Report>>() {}.type
+                val savedReports: MutableList<Report> = gson.fromJson(json, type)
+                reports.clear()
+                reports.addAll(savedReports)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                addDefaultReports()
+            }
+        } else {
+            addDefaultReports()
+        }
+    }
+
+    private fun addDefaultReports() {
+        if (reports.isEmpty()) {
+            reports.addAll(listOf(
+                Report("1", "user1", "Anonim", "Verbal", "Kantin", "2023-11-01", "Diejek karena penampilan", null, System.currentTimeMillis() - 400000000, "Selesai", "Kami telah memberikan teguran kepada pelaku."),
+                Report("2", "user1", "Ahmad Fauzi", "Senioritas", "Asrama", "2023-11-05", "Dipaksa cuci baju senior", null, System.currentTimeMillis() - 300000000, "Diproses"),
+                Report("3", "user1", "Anonim", "Online", "Grup WhatsApp", "2023-11-10", "Pesan bernada ancaman di grup kelas", null, System.currentTimeMillis() - 200000000, "Diproses"),
+                Report("4", "user1", "Ahmad Fauzi", "Fisik", "Gedung A", "2023-11-12", "Didorong hingga jatuh saat praktikum", null, System.currentTimeMillis() - 100000000, "Diproses")
+            ))
+        }
+    }
+
+    fun addUser(context: Context, user: User) {
+        if (users.none { it.email == user.email }) {
+            users.add(user)
+            saveUsers(context)
+        }
+    }
+
+    private fun saveUsers(context: Context) {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val gson = com.google.gson.Gson()
+        val json = gson.toJson(users.filter { it.id != "user1" })
+        prefs.edit().putString(KEY_LOCAL_USERS, json).apply()
     }
 
     fun login(user: User, context: Context) {

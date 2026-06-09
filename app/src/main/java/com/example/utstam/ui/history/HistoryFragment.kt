@@ -26,6 +26,7 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        updateEmptyView()
     }
 
     private fun setupRecyclerView() {
@@ -38,9 +39,20 @@ class HistoryFragment : Fragment() {
         binding.rvHistory.adapter = adapter
     }
 
+    private fun updateEmptyView() {
+        if (DataRepository.reports.isEmpty()) {
+            binding.rvHistory.visibility = View.GONE
+            binding.viewEmpty.visibility = View.VISIBLE
+        } else {
+            binding.rvHistory.visibility = View.VISIBLE
+            binding.viewEmpty.visibility = View.GONE
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         binding.rvHistory.adapter?.notifyDataSetChanged()
+        updateEmptyView()
     }
 
     override fun onDestroyView() {

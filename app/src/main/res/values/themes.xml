@@ -38,4 +38,8 @@
     <style name="CircleImageView" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize8" parent="">
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>
