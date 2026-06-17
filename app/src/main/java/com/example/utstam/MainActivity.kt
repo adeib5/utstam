@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.utstam.databinding.ActivityMainBinding
-import com.example.utstam.ui.home.HomeFragment
-import com.example.utstam.ui.history.HistoryFragment
-import com.example.utstam.ui.profile.ProfileFragment
+import com.example.utstam.ui.view.HomeFragment
+import com.example.utstam.ui.view.HistoryFragment
+import com.example.utstam.ui.view.ProfileFragment
+import com.example.utstam.R
 
-class    MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

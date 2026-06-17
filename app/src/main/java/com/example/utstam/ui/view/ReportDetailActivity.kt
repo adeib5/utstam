@@ -3,6 +3,7 @@ package com.example.utstam.ui.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import com.bumptech.glide.Glide
 import com.example.utstam.R
 import com.example.utstam.databinding.ActivityReportDetailBinding
@@ -16,8 +17,7 @@ class ReportDetailActivity : AppCompatActivity() {
         binding = ActivityReportDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        @Suppress("DEPRECATION")
-        val report = intent.getParcelableExtra<Report>("extra_report")
+        val report = IntentCompat.getParcelableExtra(intent, "extra_report", Report::class.java)
         report?.let { setupUI(it) }
     }
 

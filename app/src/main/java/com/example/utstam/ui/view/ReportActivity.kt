@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.utstam.R
@@ -41,17 +42,17 @@ class ReportActivity : AppCompatActivity() {
     private fun setupForm() {
         val categories = resources.getStringArray(R.array.bullying_categories)
         val catAdapter = ArrayAdapter(this, R.layout.list_item_dropdown, categories)
-        (binding.spinnerCategory as? AutoCompleteTextView)?.setAdapter(catAdapter)
+        (binding.spinnerCategory as AutoCompleteTextView).setAdapter(catAdapter)
 
         val locations = resources.getStringArray(R.array.bullying_locations)
         val locAdapter = ArrayAdapter(this, R.layout.list_item_dropdown, locations)
-        (binding.spinnerLocation as? AutoCompleteTextView)?.setAdapter(locAdapter)
+        (binding.spinnerLocation as AutoCompleteTextView).setAdapter(locAdapter)
 
-        binding.spinnerCategory.setOnClickListener { 
-            (it as? AutoCompleteTextView)?.showDropDown() 
+        binding.spinnerCategory.setOnClickListener { v ->
+            (v as AutoCompleteTextView).showDropDown() 
         }
-        binding.spinnerLocation.setOnClickListener { 
-            (it as? AutoCompleteTextView)?.showDropDown() 
+        binding.spinnerLocation.setOnClickListener { v ->
+            (v as AutoCompleteTextView).showDropDown()
         }
 
         val dateListener = View.OnClickListener { showDatePicker() }
