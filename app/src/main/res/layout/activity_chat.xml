@@ -27,7 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_chat_title" />
 
-    <!-- Floating Input Bar -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/layout_input_container"
         android:layout_width="match_parent"
