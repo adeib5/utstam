@@ -66,7 +66,8 @@ class ChatActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         adapter = ChatAdapter(Repository.chatMessages)
         val layoutManager = LinearLayoutManager(this)
-        layoutManager.stackFromEnd = true
+        // Dihapus agar bubble chat mulai dari atas jika pesan masih sedikit
+        // layoutManager.stackFromEnd = true
         binding.rvChat.layoutManager = layoutManager
         binding.rvChat.adapter = adapter
         
