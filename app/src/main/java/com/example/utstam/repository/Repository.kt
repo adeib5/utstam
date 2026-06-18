@@ -8,6 +8,8 @@ import com.example.utstam.model.ChatMessage
 import com.example.utstam.model.Education
 import com.example.utstam.model.Report
 import com.example.utstam.model.User
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,12 +50,11 @@ object Repository {
 
     fun init(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        
-        // Muat user lokal dari SharedPreferences
-        val gson = com.google.gson.Gson()
+
+        val gson = Gson()
         val json = prefs.getString(KEY_LOCAL_USERS, null)
         if (json != null) {
-            val type = object : com.google.gson.reflect.TypeToken<List<User>>() {}.type
+            val type = object : TypeToken<List<User>>() {}.type
             val savedUsers: List<User> = gson.fromJson(json, type)
             savedUsers.forEach { savedUser ->
                 if (users.none { it.email == savedUser.email }) {
@@ -80,7 +81,7 @@ object Repository {
 
     private fun saveUsers(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val gson = com.google.gson.Gson()
+        val gson = Gson()
         val json = gson.toJson(users.filter { it.id != "user1" })
         prefs.edit().putString(KEY_LOCAL_USERS, json).apply()
     }

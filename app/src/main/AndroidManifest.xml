@@ -29,7 +29,9 @@
         <activity android:name=".ui.view.ReportDetailActivity" />
         <activity android:name=".ui.view.EducationActivity" />
         <activity android:name=".ui.view.EducationDetailActivity" />
-        <activity android:name=".ui.view.ChatActivity" />
+        <activity
+            android:name=".ui.view.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.view.EditProfileActivity" />
 
     </application>
